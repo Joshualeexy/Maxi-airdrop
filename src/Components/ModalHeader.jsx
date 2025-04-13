@@ -14,7 +14,7 @@ const ModalHeader = ({ method1, method2, userWalletDetails, className }) => {
                     className="w-8 h-8 rounded-full"
                     alt={userWalletDetails?.name || 'wallet'}/>          
              </h4>
-             <span>{userWalletDetails?.name}</span>
+             <span>{userWalletDetails?.name || 'Wallet Connect'}</span>
 
             <button onClick={method2} className="cursor-pointer">
                 <IconClose />
