@@ -9,7 +9,7 @@ const ModalHeader = ({ method1, method2, userWalletDetails, className }) => {
                 <IconAngleLeft />
             </button>
             <h4 className='font-bold flex gap-2 items-center'>
-                <img src={userWalletDetails?.icon ? userWalletDetails?.icon : '/public/images/walletconnect.jpeg'} className="w-8 h-8 rounded-full" alt={userWalletDetails?.name} /> {userWalletDetails?.name}
+                <img src={userWalletDetails?.icon ? userWalletDetails?.icon : '/Images/walletconnect.jpeg'} className="w-8 h-8 rounded-full" alt={userWalletDetails?.name} /> {userWalletDetails?.name}
             </h4>
             <button onClick={method2} className="cursor-pointer">
                 <IconClose />
