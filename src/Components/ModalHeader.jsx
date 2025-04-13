@@ -12,8 +12,10 @@ const ModalHeader = ({ method1, method2, userWalletDetails, className }) => {
                 <img
                     src={userWalletDetails?.icon || '/Images/walletconnect.jpeg'}
                     className="w-8 h-8 rounded-full"
-                    alt={userWalletDetails?.name || 'wallet'}
-                />            </h4>
+                    alt={userWalletDetails?.name || 'wallet'}/>          
+             </h4>
+             <span>{userWalletDetails?.name}</span>
+
             <button onClick={method2} className="cursor-pointer">
                 <IconClose />
             </button>
