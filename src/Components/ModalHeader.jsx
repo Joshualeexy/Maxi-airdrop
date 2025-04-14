@@ -3,7 +3,6 @@ import IconAngleLeft from './Icons/IconAngleLeft'
 import IconClose from './Icons/IconClose'
 
 const ModalHeader = ({ method1, method2, userWalletDetails, className }) => {
-    console.log("userWalletDetails", userWalletDetails)
     return (
         <div className={`flex justify-between px-4 mb-4 ${className}`}>
             <button onClick={method1} className="cursor-pointer">
