@@ -2,16 +2,25 @@ import './index.css';
 import Layout from './Components/Layout';
 import Main from './Components/Main';
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react';
-import { WagmiConfig } from 'wagmi';
+import { WagmiConfig,http } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { sepolia, mainnet } from 'wagmi/chains';
+import { mainnet } from 'wagmi/chains';
 import { useState } from 'react';
 
 // WalletConnect projectId (put this in .env for security)
 const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID;
 
 // ✅ Add both Sepolia and Mainnet
-const chains = [sepolia, mainnet];
+const chains = [
+  {
+    ...mainnet,
+    rpcUrls: {
+      default: {
+        http: [import.meta.env.VITE_MAINNET_RPC],
+      },
+    },
+  }
+];
 
 // Wagmi config
 const wagmiConfig = defaultWagmiConfig({
