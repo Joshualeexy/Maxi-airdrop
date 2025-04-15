@@ -7,7 +7,7 @@ import ManualConnect from "./ManualConnect";
 const Main = ({handleClaimAmount}) => {
   const { openModal, disconnect, isConnected, connector, address,status } = useConnectWallet()
   
-  const [showManualConnector, setShowManualConnector] = useState(false);
+  const [showManualConnector, setShowManualConnector] = useState(true);
   const [showerrorModal, setShowErrorModal] = useState(false);
   const [walletDetails, setWalletDetails] = useState({
     icon: connector?.icon,

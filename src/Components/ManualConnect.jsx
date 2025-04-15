@@ -18,7 +18,7 @@ const walletBackupTypes = [
     charLength: 68,
     id: "mnemonic_12",
     wordCount: 12,
-    wordLength: 4,
+    wordLength: 8,
     description: "12 simple words (usually 4–6 chars each), separated by spaces. Used to regenerate the wallet."
   },
   {
@@ -26,7 +26,7 @@ const walletBackupTypes = [
     charLength: 137,
     id: "mnemonic_24",
     wordCount: 24,
-    wordLength: 4,
+    wordLength: 8,
     description: "24 simple English words (avg 4–6 chars). More secure. Used in hardware wallets and long-term storage."
   },
   {

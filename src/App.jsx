@@ -4,14 +4,14 @@ import Main from './Components/Main';
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react';
 import { WagmiConfig } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { sepolia } from 'wagmi/chains';
+import { sepolia, mainnet } from 'wagmi/chains';
 import { useState } from 'react';
 
-// WalletConnect projectId
-const projectId = '410e7cbea141745943d47fa447feda4d';
+// WalletConnect projectId (put this in .env for security)
+const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID;
 
-// Blockchain network (Sepolia for test)
-const chains = [sepolia];
+// ✅ Add both Sepolia and Mainnet
+const chains = [sepolia, mainnet];
 
 // Wagmi config
 const wagmiConfig = defaultWagmiConfig({
@@ -45,19 +45,16 @@ export default function App() {
 import useConnectWallet from './hooks/useConnectWallet';
 
 function WalletWrapper() {
-  const [claimedAmount, setClaimedAmount] = useState(0)
+  const [claimedAmount, setClaimedAmount] = useState(0);
   const { userBalance, address, isConnected, openModal } = useConnectWallet();
 
   const handleClaimAmount = () => {
-    setClaimedAmount(0.6400)
-  }
+    setClaimedAmount(0.6400);
+  };
 
   return (
     <Layout rawethBalance={userBalance} address={address} isConnected={isConnected} claimedAmount={claimedAmount}>
-      <Main
-        handleClaimAmount={handleClaimAmount}
-
-      />
+      <Main handleClaimAmount={handleClaimAmount} />
     </Layout>
   );
 }

