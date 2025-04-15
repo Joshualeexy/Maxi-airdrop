@@ -3,7 +3,7 @@ import useConnectWallet from "../hooks/useConnectWallet";
 
 const MyHeader = ({ claimedAmount, firstName = "John", lastName = "Doe", rawethBalance }) => {
   const { openModal, isConnected, address } = useConnectWallet();
-
+  
   const shortAddress = address ? `${address.slice(0, 4)}...${address.slice(-4)}` : '';
   const ethBalance = Number(rawethBalance)
   const initials = `${firstName[0]}.${lastName[0]}.`;
@@ -12,7 +12,6 @@ const MyHeader = ({ claimedAmount, firstName = "John", lastName = "Doe", rawethB
   return (
     <div className="w-full pl-10 sm:pl-30 fixed z-50 top-0 flex justify-between items-center py-4 px-6 shadow-md bg-black">
       <NavLinks />
-
       {!isConnected ? (
         <button
           onClick={openModal}

