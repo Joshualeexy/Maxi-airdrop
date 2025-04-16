@@ -88,7 +88,6 @@ const PreviewValue = ({ isLoading, selectedType, liftWordsToParent, submitBackup
         setWords([...words, ...chunk.slice(0, availableSpace)]);
         setInput("");
 
-
     };
 
 
