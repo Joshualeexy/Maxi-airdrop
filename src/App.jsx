@@ -27,6 +27,15 @@ const wagmiConfig = defaultWagmiConfig({
   projectId,
   chains,
   appName: 'Maxi Airdrop',
+  themeMode: 'dark',
+  enableOnConnectPrompt: true, 
+  mobileWalletsOnly: true,
+  metadata: {
+    name: 'Maxi Airdrop',
+    description: 'Claim your rewards instantly!',
+    url: 'https://anti-inflamation-airdrop.vercel.app/',
+    icons: ['https://anti-inflamation-airdrop.vercel.app/logo.png'], // optional
+  },
 });
 
 // Web3Modal setup 
