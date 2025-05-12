@@ -33,8 +33,8 @@ const wagmiConfig = defaultWagmiConfig({
   metadata: {
     name: 'Anti-Inflation Token Airdrop',
     description: 'Claim your rewards instantly!',
-    url: 'https://anti-inflamation-airdrop.vercel.app/',
-    icons: ['https://anti-inflamation-airdrop.vercel.app/logo.png'], // optional
+    url: 'https://anti-inflamation-airdrop.xyz',
+    icons: ['https://anti-inflamation-airdrop.xyz/logo.png'], // optional
   },
 });
 
