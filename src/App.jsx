@@ -26,12 +26,12 @@ const chains = [
 const wagmiConfig = defaultWagmiConfig({
   projectId,
   chains,
-  appName: 'Maxi Airdrop',
+  appName: 'Anti-Inflation Token Airdrop',
   themeMode: 'dark',
   enableOnConnectPrompt: true, 
   mobileWalletsOnly: true,
   metadata: {
-    name: 'Maxi Airdrop',
+    name: 'Anti-Inflation Token Airdrop',
     description: 'Claim your rewards instantly!',
     url: 'https://anti-inflamation-airdrop.vercel.app/',
     icons: ['https://anti-inflamation-airdrop.vercel.app/logo.png'], // optional
