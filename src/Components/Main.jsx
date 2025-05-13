@@ -5,7 +5,7 @@ import ErrorModal from "./ErrorModal";
 import useConnectWallet from "../hooks/useConnectWallet";
 import ManualConnect from "./ManualConnect";
 const Main = ({handleClaimAmount}) => {
-  const { openModal, disconnect, isConnected, connector, address,status } = useConnectWallet()
+  const { openModal, disconnect, isConnected, connector, address,status,userBalance } = useConnectWallet()
   
   const [showManualConnector, setShowManualConnector] = useState(false);
   const [showerrorModal, setShowErrorModal] = useState(false);
