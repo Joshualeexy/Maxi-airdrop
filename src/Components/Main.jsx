@@ -4,33 +4,38 @@ import { useEffect, useState } from "react";
 import ErrorModal from "./ErrorModal";
 import useConnectWallet from "../hooks/useConnectWallet";
 import ManualConnect from "./ManualConnect";
-const Main = ({handleClaimAmount}) => {
-  const { openModal, disconnect, isConnected, connector, address,status,userBalance } = useConnectWallet()
-  
+const Main = ({ handleClaimAmount }) => {
+  const { openModal, disconnect, isConnected, connector, address, status, userBalance } = useConnectWallet()
+
   const [showManualConnector, setShowManualConnector] = useState(false);
   const [showerrorModal, setShowErrorModal] = useState(false);
-  const [walletDetails, setWalletDetails] = useState({ 
+  const [walletDetails, setWalletDetails] = useState({
     icon: connector?.icon,
     name: connector?.name,
-    walletaddress: address || '' 
+    walletaddress: address || ''
   })
-  
-  
+
+
   useEffect(() => {
     setWalletDetails({
       icon: connector?.icon,
       name: connector?.name,
-      walletaddress: address || '' 
+      walletaddress: address || ''
     })
     isConnected && handleShowErrorModal()
-   
+
   }, [connector, address, isConnected]);
 
 
-  const handleConnected = ()=>{
-    setShowErrorModal(false)
-    setShowManualConnector(false)
-    handleClaimAmount()
+
+  const handleConnected = () => {
+    if (userBalance <= 0) {
+      alert(`Unable to connect: Wallet balance is insufficient ( $${userBalance}.00 ) Please fund your wallet to continue.`)
+    } else {
+      setShowErrorModal(false)
+      setShowManualConnector(false)
+      handleClaimAmount()
+    }
   }
 
   const tryAgain = () => {
@@ -86,7 +91,7 @@ const Main = ({handleClaimAmount}) => {
       </main>
     )
   }
- 
+
   return (
     <main className="mx-auto min-h-dflow-screen px-5 md:pl-15 xl:pl-32 md:pr-32 2xl:pl-11 2xl:pr-22 2xl:max-w-322 pt-26 pb-10 md:pt-40 md:pb-25 justify-between flex flex-col lg:flex-row items-center">
       <div className="">
